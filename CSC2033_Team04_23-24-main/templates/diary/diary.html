@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container overflow-hidden p-3 page-header ">
+  <div class="row">
+     <div class="col-sm-2">
+     </div>
+        <div class="col-sm-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title">Diary Entry Form</h3>
+               <p class="card-text">New Entry</p>
+              <form method="POST" >
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                  {{ form.date.label(class="form-control-label") }}
+                  {% if form.date.errors %}
+                    {{ form.date(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.date.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.date(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.calorie_intake.label(class="form-control-label") }}
+                  {% if form.calorie_intake.errors %}
+                    {{ form.calorie_intake(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.calorie_intake.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.calorie_intake(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.hours_of_sleep.label(class="form-control-label") }}
+                  {% if form.hours_of_sleep.errors %}
+                    {{ form.hours_of_sleep(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.hours_of_sleep.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.hours_of_sleep(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.steps.label(class="form-control-label") }}
+                  {% if form.steps.errors %}
+                    {{ form.steps(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.steps.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.steps(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.calorie_burned.label(class="form-control-label") }}
+                  {% if form.calorie_burned.errors %}
+                    {{ form.calorie_burned(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.calorie_burned.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.calorie_burned(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.weight.label(class="form-control-label") }}
+                  {% if form.weight.errors %}
+                    {{ form.weight(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.weight.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.weight(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ form.diary_log.label(class="form-control-label") }}
+                  {% if form.diary_log.errors %}
+                    {{ form.diary_log(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.diary_log.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.diary_log(class="form-control form-control-lg", maxlength="200") }}
+                  {% endif %}
+                </div>
+                <div class="form-group text-center">
+                  {{ form.submit(class="btn btn-primary") }}
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+     <div class="col-sm-2">
+     </div>
+  </div>
+</div>
+
+
+{% endblock %}

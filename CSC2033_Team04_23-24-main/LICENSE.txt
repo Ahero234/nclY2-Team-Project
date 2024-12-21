@@ -1,0 +1,11 @@
+### `LICENSE`
+The MIT License (MIT)
+```text
+The following terms and conditions must be met in order for anyone who obtains a copy of this software and any related documentation files (the "Software") to be allowed to deal with it without restriction. This includes the freedom to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, as well as the ability to allow others to do the same.
+
+All copies or significant portions of the Software must bear the aforementioned copyright notice and permission notice.
+
+Without limiting the generality of the foregoing, the software is provided "as is" and is not covered by any express or implied warranties, including but not limited to those of merchantability, fitness for a particular purpose, and noninfringement.
+
+The authors and copyright holders disclaim all liability for claims, damages, or other liabilities arising from, out of, or connected with the software, or from using or otherwise utilizing the software, whether in a contract, tort, or other action.
+```

@@ -1,0 +1,417 @@
+05/30/2024 11:45:12 PM : SECURITY - User registration [jammyjoe10@gmail.com 127.0.0.1]
+05/30/2024 11:46:15 PM : SECURITY - User Login [1, jammyjoe10@gmail.com, 127.0.0.1]
+05/30/2024 11:46:14 PM : SECURITY - User registration [test123@gmail.com 127.0.0.1]
+05/30/2024 11:47:11 PM : SECURITY - User Login [2, test123@gmail.com, 127.0.0.1]
+05/30/2024 11:50:45 PM : SECURITY - User registration [johnsmith@email.com 127.0.0.1]
+05/30/2024 11:51:35 PM : SECURITY - User Login [3, johnsmith@email.com, 127.0.0.1]
+05/30/2024 11:53:55 PM : SECURITY - User Login [2, test123@gmail.com, 127.0.0.1]
+05/30/2024 11:58:19 PM : SECURITY - Admin registration [anothertest234@email.com 127.0.0.1]
+05/31/2024 12:14:33 AM : SECURITY - User registration [jammyjoe10@gmail.com 127.0.0.1]
+05/31/2024 12:16:23 AM : SECURITY - User registration [jderrett2002@gmail.com 127.0.0.1]
+05/31/2024 12:20:05 AM : SECURITY - User Login [3, jderrett2002@gmail.com, 127.0.0.1]
+05/31/2024 12:20:46 AM : Exception on /delete [POST]
+Traceback (most recent call last):
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`HealthDB`.`diary_entries`, CONSTRAINT `diary_entries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\users\views.py", line 206, in delete_users
+    User.query.filter_by(id=user.id).delete()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 3161, in delete
+    result: CursorResult[Any] = self.session.execute(
+                                ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1953, in orm_execute_statement
+    return super().orm_execute_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`HealthDB`.`diary_entries`, CONSTRAINT `diary_entries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))')
+[SQL: DELETE FROM users WHERE users.id = %(id_1)s]
+[parameters: {'id_1': 3}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+05/31/2024 12:37:41 AM : SECURITY - User registration [jammyjoe10@gmail.com 127.0.0.1]
+05/31/2024 12:38:18 AM : SECURITY - User Login [1, jammyjoe10@gmail.com, 127.0.0.1]
+05/31/2024 12:38:54 AM : Exception on /delete [POST]
+Traceback (most recent call last):
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`HealthDB`.`diary_entries`, CONSTRAINT `diary_entries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\users\views.py", line 206, in delete_users
+    User.query.filter_by(id=user.id).delete()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 3161, in delete
+    result: CursorResult[Any] = self.session.execute(
+                                ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1953, in orm_execute_statement
+    return super().orm_execute_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`HealthDB`.`diary_entries`, CONSTRAINT `diary_entries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))')
+[SQL: DELETE FROM users WHERE users.id = %(id_1)s]
+[parameters: {'id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+05/31/2024 12:49:27 AM : Exception on /delete [POST]
+Traceback (most recent call last):
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`HealthDB`.`diary_entries`, CONSTRAINT `diary_entries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\users\views.py", line 206, in delete_users
+    User.query.filter_by(id=user.id).delete()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 3161, in delete
+    result: CursorResult[Any] = self.session.execute(
+                                ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1953, in orm_execute_statement
+    return super().orm_execute_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\Joes\PycharmProjects\CSC2033_Team04_23-24\venv\Lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`HealthDB`.`diary_entries`, CONSTRAINT `diary_entries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`))')
+[SQL: DELETE FROM users WHERE users.id = %(id_1)s]
+[parameters: {'id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+05/31/2024 09:16:16 AM : SECURITY - User registration [jammyjoe10@gmail.com 127.0.0.1]
+05/31/2024 09:18:17 AM : SECURITY - User registration [jderrett2002@gmail.com 127.0.0.1]
+05/31/2024 09:22:01 AM : SECURITY - Login Failure [jderrett2002@gmail.com, 127.0.0.1]
+05/31/2024 09:22:16 AM : SECURITY - Login Failure [jderrett2002@gmail.com, 127.0.0.1]
+05/31/2024 09:22:24 AM : SECURITY - Login Failure and redirect [jderrett2002@gmail.com, 127.0.0.1]
+05/31/2024 09:22:47 AM : SECURITY - Login Failure [jammyjoe10@gmail.com, 127.0.0.1]
+05/31/2024 09:28:31 AM : SECURITY - User registration [poejcetppjzzesvtao@cazlp.com 127.0.0.1]
+05/31/2024 09:29:18 AM : SECURITY - User Login [4, poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:48:17 AM : SECURITY - User registration [poejcetppjzzesvtao@cazlp.com 127.0.0.1]
+05/31/2024 09:49:16 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:49:28 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:49:32 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:50:06 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:51:08 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:51:18 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:53:41 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:54:38 AM : SECURITY - User Password Reset [127.0.0.1]
+05/31/2024 09:54:54 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:58:33 AM : SECURITY - User registration [vcdwsmsyhkbsbcrhyj@cazlg.com 127.0.0.1]
+05/31/2024 09:59:03 AM : SECURITY - Login Failure [vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 09:59:34 AM : SECURITY - User Login [7, vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 10:00:05 AM : SECURITY - User Login [7, vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 09:16:16 AM : SECURITY - User registration [jammyjoe10@gmail.com 127.0.0.1]
+05/31/2024 09:18:17 AM : SECURITY - User registration [jderrett2002@gmail.com 127.0.0.1]
+05/31/2024 09:22:01 AM : SECURITY - Login Failure [jderrett2002@gmail.com, 127.0.0.1]
+05/31/2024 09:22:16 AM : SECURITY - Login Failure [jderrett2002@gmail.com, 127.0.0.1]
+05/31/2024 09:22:24 AM : SECURITY - Login Failure and redirect [jderrett2002@gmail.com, 127.0.0.1]
+05/31/2024 09:22:47 AM : SECURITY - Login Failure [jammyjoe10@gmail.com, 127.0.0.1]
+05/31/2024 09:28:31 AM : SECURITY - User registration [poejcetppjzzesvtao@cazlp.com 127.0.0.1]
+05/31/2024 09:29:18 AM : SECURITY - User Login [4, poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:48:17 AM : SECURITY - User registration [poejcetppjzzesvtao@cazlp.com 127.0.0.1]
+05/31/2024 09:49:16 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:49:28 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:49:32 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:50:06 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:51:08 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:51:18 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:53:41 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:54:38 AM : SECURITY - User Password Reset [127.0.0.1]
+05/31/2024 09:54:54 AM : SECURITY - Login Failure [poejcetppjzzesvtao@cazlp.com, 127.0.0.1]
+05/31/2024 09:58:33 AM : SECURITY - User registration [vcdwsmsyhkbsbcrhyj@cazlg.com 127.0.0.1]
+05/31/2024 09:59:03 AM : SECURITY - Login Failure [vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 09:59:34 AM : SECURITY - User Login [7, vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 10:00:05 AM : SECURITY - User Login [7, vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 10:03:39 AM : SECURITY - User Login [7, vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 10:08:47 AM : SECURITY - User registration [vcdwsmsyhkbsbcrhyj@cazlg.com 127.0.0.1]
+05/31/2024 10:10:04 AM : SECURITY - User Login [11, vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 10:15:03 AM : SECURITY - User registration [vcdwsmsyhkbsbcrhyj@cazlg.com 127.0.0.1]
+05/31/2024 10:15:38 AM : SECURITY - User Login [13, vcdwsmsyhkbsbcrhyj@cazlg.com, 127.0.0.1]
+05/31/2024 10:56:10 AM : SECURITY - User registration [admin@4health.org 127.0.0.1]
+05/31/2024 10:56:58 AM : SECURITY - User Login [16, admin@4health.org, 127.0.0.1]
+05/31/2024 11:04:13 AM : SECURITY - User Password Reset [127.0.0.1]
+05/31/2024 11:07:41 AM : SECURITY - User registration [swllcxmtgpyhabklsl@cazlq.com 127.0.0.1]
+05/31/2024 11:08:23 AM : SECURITY - User Login [17, swllcxmtgpyhabklsl@cazlq.com, 127.0.0.1]
+05/31/2024 11:31:56 AM : SECURITY - User registration [zckibzcnjngtlgdepe@cazlq.com 127.0.0.1]
+05/31/2024 11:32:35 AM : SECURITY - User Login [20, zckibzcnjngtlgdepe@cazlq.com, 127.0.0.1]
+05/31/2024 11:40:00 AM : SECURITY - User Password Reset [127.0.0.1]
+05/31/2024 02:15:40 PM : SECURITY - User registration [admin@testing.com 127.0.0.1]
+05/31/2024 02:16:35 PM : SECURITY - User Login [22, admin@testing.com, 127.0.0.1]
+05/31/2024 02:20:16 PM : SECURITY - User Login [22, admin@testing.com, 127.0.0.1]
+05/31/2024 02:22:30 PM : SECURITY - User registration [unittester@test.org 127.0.0.1]
+05/31/2024 02:22:30 PM : SECURITY - Login Failure [unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:30 PM : SECURITY - Login Failure [unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:30 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:30 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:31 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:31 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:31 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:31 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:22:58 PM : SECURITY - Login Failure [admintest@testing.job, 127.0.0.1]
+05/31/2024 02:23:04 PM : SECURITY - User registration [unittester@test.org 127.0.0.1]
+05/31/2024 02:23:04 PM : SECURITY - Login Failure [unittester@test.org, 127.0.0.1]
+05/31/2024 02:23:04 PM : SECURITY - Login Failure [unittester@test.org, 127.0.0.1]
+05/31/2024 02:23:04 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:23:04 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:23:05 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:23:05 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:23:05 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:23:05 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:06 PM : SECURITY - Login Failure [admintest@testing.job, 127.0.0.1]
+05/31/2024 02:24:38 PM : SECURITY - User registration [unittester@test.org 127.0.0.1]
+05/31/2024 02:24:38 PM : SECURITY - Login Failure [unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:38 PM : SECURITY - Login Failure [unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:38 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:38 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:39 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:39 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:39 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]
+05/31/2024 02:24:39 PM : SECURITY - User Login [3, unittester@test.org, 127.0.0.1]

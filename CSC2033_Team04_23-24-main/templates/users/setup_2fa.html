@@ -1,0 +1,19 @@
+{% extends 'base_bg.html' %}
+{% block content %}
+
+
+    <!-- Main Content -->
+    <div class="column is-5 is-offset-4 two-factor">
+        <h3 class="title is-3">2-Factor Authentication Setup</h3>
+        <div class="box">
+            <p>Set up 2-factor authentication for your account {{ email }},
+                scan the QR code below with an authenticator app:</p>
+
+            <!-- QR Code -->
+            <p><img src="{{ qrcode(uri, box_size=5, border=5) }}"></p>
+            <p>Once completed go to <a href="{{ url_for('users.login') }}"><u>Login</u></a> page</p>
+        </div>
+    </div>
+
+<!-- Enf Of Main Content -->
+{% endblock content %}

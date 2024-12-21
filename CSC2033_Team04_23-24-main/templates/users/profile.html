@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <!-- Show Error Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show page-header flash-messages" role="alert">
+               {{ messages[0] }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endif %}
+     {% endwith %}
+
+
+    <!-- Main Content -->
+    <div class="container overflow-hidden p-3 page-header">
+      <div class="row">
+        <div class="col-sm-6">
+          <form method="POST">
+              {{ form.csrf_token }}
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Profile</h4>
+                <p class="card-text">My details</p>
+                <table class="table">
+                <tr>
+                    <!-- Input First Name -->
+                    <th>First Name</th>
+                    <td>{{ form.first_name(class="form-control", id="first_name", value=current_user.first_name) }}</td>
+                    {% for error in form.first_name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </tr>
+                <tr>
+                     <!-- Input Last Name -->
+                    <th>Last Name</th>
+                    <td>{{ form.last_name(class="form-control", id="last_name", value=current_user.last_name) }}</td>
+                    {% for error in form.last_name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <!-- Input Username -->
+                    <th>Username</th>
+                    <td>{{ form.username(class="form-control", id="username", value=current_user.username) }}</td>
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <!-- Email -->
+                    <th>Email</th>
+                    <th><input class="form-control" id="update_field" name="email"
+                         value="{{ email }}" disabled readonly></th>
+                </tr>
+                <tr>
+                    <!-- Account Number -->
+                    <th>Account No.</th>
+                    <th>{{ form.acc_no(class="form-control", id="acc_no", value=current_user.id, readonly=true, disabled=true) }}</th>
+                        </tr>
+                <tr>
+                    <!-- Date Of Birth -->
+                    <th>Date Of Birth</th>
+                    <th><input class="form-control" id="dob" name="dob"
+                         value="{{ dob }}" disabled readonly></th>
+                </tr>
+                </tbody>
+                </table>
+
+                <!-- Submit Update -->
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+          </form>
+        </div>
+
+
+        <!-- Health Section -->
+        <div class="col-sm-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Health Data</h4>
+              <p class="card-text">Your Health Data</p>
+               <table class="table">
+                    <tr>
+                        <!-- User Height -->
+                        <p>{{current_user.height}}cm</p>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+          </div>
+
+            <!-- Recipes Section -->
+            <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Recipes</h4>
+              <p class="card-text">Recipes that you've created or bookmarked</p>
+                <a class="btn btn-primary" href="{{ url_for('recipes.user_recipes') }}">
+                  Your recipes
+                </a>
+                <a class="btn btn-primary" href="{{ url_for('recipes.view_bookmarks') }}">
+                  Bookmarked recipes
+                </a>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      <div class="row">
+         <div class="col-sm-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Account</h4>
+              <p class="card-text">Account functions</p>
+
+            {% if current_user.id == acc_no or current_user.is_admin %}
+                <a data-toggle="modal" data-target="#deleteUser">
+                    <button class="btn btn-danger">
+                        Delete Account
+                     </button>
+                </a>
+                {% endif %}
+
+             </div>
+            </div>
+          </div>
+      </div>
+
+
+        <!-- Delete Modal popup -->
+        <div class="modal fade page-header" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="deleteUser" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <form action="{{ url_for('users.delete_users') }}" method="post">
+                    <div class="text-center mb-3">
+                      Are you sure you want to delete your account?
+                      <br>
+                      This action is irreversible.
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+                      <div>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                      <div>
+                        <button type="submit" class="btn btn-danger">
+                          <i class="fas fa-trash fa-fw me-1"></i>Delete
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+     <!-- Allow Alerts -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        $('.alert').alert()
+      })
+    </script>
+
+    </div>
+
+
+    <!-- End of Main Content -->
+{% endblock %}

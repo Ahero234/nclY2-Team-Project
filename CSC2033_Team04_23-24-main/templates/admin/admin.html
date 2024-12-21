@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script type="text/javascript" src="{{ url_for('static', filename='rng.js') }}"></script>
+
+    <div class="container overflow-hidden p-3 page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="card-title">4Health Admin</h3>
+                        <p class="card-text is-4">Welcome, {{ current_user.first_name }}</p>
+                        <h4 class="card-title">Current Users</h4>
+                        <div class="box">
+                            {% if current_users %}
+                                <div class="field">
+                                    <table id="currentusers" class="table table-bordered table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="th-sm">ID</th>
+                                                <th class="th-sm">Email</th>
+                                                <th class="th-sm">Firstname</th>
+                                                <th class="th-sm">Lastname</th>
+                                                <th class="th-sm">Date of Birth</th>
+                                                <th class="th-sm">Role</th>
+                                                <th class="th-sm">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for user in current_users %}
+                                                <tr>
+                                                    <td>{{ user.id }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>{{ user.first_name }}</td>
+                                                    <td>{{ user.last_name }}</td>
+                                                    <td>{{ user.dob }}</td>
+                                                    <td>{{ user.role }}</td>
+                                                    <td>
+                                                        <a href="{{ url_for('admin.delete_users', id=user.id) }}?back={{ request.path }}">
+                                                            <button class="btn btn-outline-danger">Delete User</button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
+                            <form action="/view_all_users">
+                                <div>
+                                    <button class="btn btn-secondary">View All Users</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <!-- Security Logs -->
+                    <div class="card-body">
+                        <h4 class="card-title">Security Logs</h4>
+                        <div class="box">
+                            {% if logs %}
+                                <div class="field">
+                                    <table class="table">
+                                        <tr>
+                                            <th>Last 10 Security Log Entries</th>
+                                        </tr>
+                                        {% for entry in logs %}
+                                            <tr>
+                                                <td>{{ entry }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                            <form action="/logs">
+                                <div>
+                                    <button class="btn btn-secondary">View Logs</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Register Admin -->
+                    <div class="card-body" id="test">
+                        <h4 class="card-title">Register Admin</h4>
+                        <div class="box">
+                            <form action="/register_admin">
+                                <div>
+                                    <button class="btn btn-secondary">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- User Activity Logs -->
+                    <div class="card-body" id="test">
+                        <h4 class="card-title">User Activity Logs</h4>
+                        <div class="box">
+                            {% if content %}
+                                <div class="field">
+                                    <table class="table">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Email</th>
+                                            <th>Registration time</th>
+                                        </tr>
+                                        {% for user in content %}
+                                            <tr>
+                                                <td>{{ user.id }}</td>
+                                                <td>{{ user.email }}</td>
+                                                <td>{{ user.created }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            {% endif %}
+                            <form method="POST" action="/view_all_activity">
+                                <div>
+                                    <button class="btn btn-secondary">View User Activity</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Unapproved recipes -->
+                    <div class="card-body">
+                        <h4 class="card-title">Unapproved recipes</h4>
+                        <div class="box">
+                            {% if recipes_list %}
+                                <div class="field">
+                                    {%  if recipes_list == "None" %}
+                                        <p>There are no recipes waiting for approval.</p>
+                                    {% else %}
+                                        <table class="table">
+                                            <tr>
+                                                <th>Recipe Title</th>
+                                                <th>Approve</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                            {% for recipe in recipes_list %}
+                                                <tr>
+                                                    <td><a href="recipe?id={{ recipe["id"] }}"> <b>"{{ recipe["title"] }}"</b></a></td>
+                                                    <td><form action="/approve-recipe">
+                                                            <input type="hidden" name="id" value="{{ recipe["id"] }}">
+                                                            <button class="btn btn-success">Approve</button>
+                                                    </form></td>
+                                                    <td><form action="/delete-recipe">
+                                                            <input type="hidden" name="id" value="{{ recipe["id"] }}">
+                                                            <button class="btn btn-danger">Delete</button>
+                                                    </form></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            <form action="/unapproved-recipes">
+                                <div>
+                                    <button class="btn btn-secondary">View unapproved recipes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

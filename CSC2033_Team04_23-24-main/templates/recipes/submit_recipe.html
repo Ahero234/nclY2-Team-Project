@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container overflow-hidden p-3 page-header ">
+  <div class="row">
+     <div class="col-sm-2">
+     </div>
+        <div class="col-sm-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Submit Recipe</h5>
+            <form class="needs-validation" accept-charset="utf-8" action="" method="POST">
+            {{ form.csrf_token }}
+
+                    <div class="form-group">
+                        <label for="inputTitle">Title</label>
+                        {{ form.title(class="input form-control", placeholder="Recipe Title") }}
+                        {% for error in form.title.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputSummary">Summary</label>
+                        {{ form.summary(class="input form-control", placeholder="Write a summary of your recipe here") }}
+                        {% for error in form.summary.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputCategory">Category</label>
+                        {{ form.category(class="input form-control", placeholder="Category (e.g. 'Breakfast', 'Dessert', 'Dinner'") }}
+                        {% for error in form.category.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputTags">Tags</label>
+                        {{ form.tags(class="input form-control", placeholder="Tags (e.g. 'Vegan', 'Gluten Free', 'Low Carbs'") }}
+                        {% for error in form.tags.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputIngredients">Ingredients</label>
+                        {{ form.ingredients(class="input form-control", placeholder="Ingredients (one per line)") }}
+                        {% for error in form.ingredients.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputInstructions">Instructions</label>
+                        {{ form.instructions(class="input form-control", placeholder="Instructions (one per line)") }}
+                        {% for error in form.instructions.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputServings">Servings</label>
+                        {{ form.servings(class="input form-control", placeholder="Servings") }}
+                        {% for error in form.servings.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCaloriesPerServing">Calories per serving</label>
+                        {{ form.calories_per_serving(class="input form-control", placeholder="Calories per serving") }}
+                        {% for error in form.calories_per_serving.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputPreparationTime">Preparation Time (minutes)</label>
+                        {{ form.preparation_time(class="input form-control", placeholder="Preparation time (minutes)") }}
+                        {% for error in form.preparation_time.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPrivate">Do you want to make this recipe private? (Only you will be able to see it)</label>
+                        {{ form.private }}
+                        {% for error in form.private.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+
+                <div class="d-flex justify-content-center mt-3">
+                    {{ form.submit( value="Submit recipe", class="mt-4 btn btn-primary") }}
+                </div>
+            </form>
+
+                </div>
+             <div class="col-sm-2">
+             </div>
+          </div>
+        </div>
+  </div>
+</div>
+{% endblock %}

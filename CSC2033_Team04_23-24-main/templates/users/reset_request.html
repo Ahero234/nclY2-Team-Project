@@ -1,0 +1,45 @@
+{% extends 'base_bg.html' %}
+{% block content %}
+
+
+    <!-- Main Content -->
+    <div class="wrapper d-flex align-items-center justify-content-center vh-100">
+        <div class="auth-content">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+
+                        <!-- Show Error Messages -->
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="notification is-danger">
+                                    {{ messages[0] }}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        <!-- Form Header -->
+                        <img src="{{url_for('static', filename='logo.png')}}" alt="4healthlogo " width="300" height="90">
+                    </div>
+                    <h6 class="mb-4 text-muted">Reset Password</h6>
+                    <form method="POST" class="needs-validation">
+                        <div class="field">
+                            {{ form.csrf_token() }}
+                            <div class="control">
+                                {{ form.email(class="input form-control", placeholder="Email") }}
+                                <!-- If there are errors, show them -->
+                                {%  for error in form.email.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div>
+                            {{ form.submit(value="Reset", class="mt-3 btn btn-primary") }}
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+   <!-- End Of Main Content -->
+{% endblock content %}

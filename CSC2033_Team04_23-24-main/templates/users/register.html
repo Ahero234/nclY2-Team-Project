@@ -1,0 +1,140 @@
+{% extends 'base_bg.html' %}
+{% block content %}
+
+    <!-- Show Error Message -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+             <div class="alert alert-danger">
+                 {{ messages[0] }}
+             </div>
+        {% endif %}
+     {% endwith %}
+
+
+    <!-- Main Content -->
+    <div class="container-sm overflow-hidden p-2 page-header card ">
+        <div class="mb-4 text-center">
+            <!-- Logo -->
+            <img src="{{url_for('static', filename='logo.png')}}"  alt="4healthlogo" width="300" height="90">
+        </div>
+
+        <h6 class="mb-4 text-muted text-center">Sign up for an account</h6>
+
+        <form class="needs-validation" accept-charset="utf-8" action="" method="POST">
+        {{ form.csrf_token }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <!-- Input First Name -->
+                        <label for="inputFirstName">First Name</label>
+                        {{ form.firstname(class="input form-control", placeholder="First Name") }}
+                        {% for error in form.firstname.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <!-- Input Last Name -->
+                        <label for="inputLastName">Last Name</label>
+                         {{ form.lastname(class="input form-control", placeholder="Last Name") }}
+                        {% for error in form.lastname.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <!-- Input Email -->
+                        <label for="inputEmail">Email</label>
+                        {{ form.email(class="input form-control", placeholder="Email") }}
+                        {% for error in form.email.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                         <!-- Input Username -->
+                        <label for="inputUsername">Username</label>
+                         {{ form.username(class="input form-control", placeholder="Username") }}
+                        {% for error in form.username.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                         <!-- Input Password -->
+                        <label for="inputPassword">Password</label>
+                        {{ form.password(class="input form-control", placeholder="Password") }}
+                        {% for error in form.password.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                          <!-- Input Password Confirmation -->
+                        <label for="inputPassword2">Confirm Password</label>
+                        {{ form.confirm_password(class="input form-control", placeholder="Confirm Password") }}
+                        {% for error in form.confirm_password.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                          <!-- Input Date Of Birth -->
+                        <label for="inputDob">Date of birth</label>
+                        {{ form.dob(class="input form-control", placeholder="DD/MM/YYYY") }}
+                        {% for error in form.dob.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+                 <div class="col-md-6">
+                    <div class="form-group">
+                         <!-- Input Height -->
+                        <label for="inputHeight">Height (cm)</label>
+                        {{ form.height(class="input form-control", placeholder="cm") }}
+                        {% for error in form.height.errors %}
+                                        {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Recaptcha -->
+            <div class="d-flex justify-content-center mt-3">
+                {{ form.recaptcha(class="g-recaptcha") }}
+            </div>
+
+            <!-- Sign up Submit -->
+            <div class="d-flex justify-content-center mt-3">
+                {{ form.submit( value="Sign up", class="mt-4 btn btn-primary") }}
+            </div>
+
+        </form>
+
+        <div class="justify-content-center text-center mb-3">
+            <h6 class="text-muted">— or —</h6>
+             <a href="{{url_for('users.login')}}"><button class="btn btn-secondary">Login</button></a>
+        </div>
+    </div>
+
+
+<!-- End Of Main Content -->
+{% endblock content %}
+

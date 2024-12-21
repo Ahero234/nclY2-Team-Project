@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container overflow-hidden p-3 page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3 class="card-title">Your Recipes</h3>
+                        <div class="justify-content-center mt-3">
+                        <p class="card-text">Recipes you've Submitted </p>
+                        <form method="POST" action="/new-recipe">
+                           <input type="submit" value="Submit New Recipe" class="mt-2  mb-3 btn btn-primary">
+                        </form>
+                    </div>
+                    <div>
+                        <form class="input-group" method="get" action="/user-recipes">
+                          <div class="input-group mb-3">
+                              <input type="hidden" name="sort" value="{{  sort_order }}">
+                              <input type="text" name="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="basic-addon2">
+                              <div class="input-group-append">
+                                {% if search_query != "" %}
+                                    <form method="get" action="/user-recipes">
+                                        <input type="hidden" name="sort" value="{{  sort_order }}">
+                                        <button class="btn btn-outline-danger" type="submit" value="Clear Search">Clear Search</button>
+                                    </form>
+                                {% endif %}
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                              </div>
+                              <div class="dropdown">
+                                  <button class="btn dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Sort By
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <a class="newbtn dropdown-item" href="/user-recipes?sort=new{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Newest</a>
+                                    <a class="oldbtn dropdown-item"  href="/user-recipes?sort=old{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Oldest</a>
+                                    <a class="highest-ratingbtn dropdown-item" href="/user-recipes?sort=highest-rating{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Highest rating</a>
+                                    <a class="lowest-ratingbtn dropdown-item"  href="/user-recipes?sort=lowest-rating{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Lowest rating</a>
+                                    <a class="title-azbtn dropdown-item" href="/user-recipes?sort=title-az{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Alphabetical (A -> Z)</a>
+                                    <a class="title-zabt dropdown-item"  href="/user-recipes?sort=title-za{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Alphabetical (Z -> A))</a>
+                                    <a class="quickestbtn dropdown-item"  href="/user-recipes?sort=quickest{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Quickest preparation time</a>
+                                    <a class="longestbtn dropdown-item"  href="/user-recipes?sort=longest{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Longest preparation time</a>
+                                    <a class="least-caloriesbtn dropdown-item" href="/user-recipes?sort=least-calories{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Least calories per serving</a>
+                                    <a class="most-caloriesbtn dropdown-item"  href="/user-recipes?sort=most-calories{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Most calories per serving</a>
+                                    <a class="least-servingsbtn dropdown-item"  href="/user-recipes?sort=least-servings{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Least servings</a>
+                                    <a class="most-servingsbtn dropdown-item"  href="/user-recipes?sort=most-servings{{ '&page=' + page | string if page > 1 }}{{ '&search=' + search_query if search_query != "" }}">Most servings</a>
+                                  </div>
+                            </div>
+
+                    </div>
+
+
+
+                    </div>
+
+
+                    </div>
+                    <div class="card-body ml-1">
+                        {% if search_query != "" %}
+                            <h3 class="card-text">Displaying results for "{{ search_query }}"</h3>
+                        {% endif %}
+                        {% if sort_order != "new" %}
+                            <h3 class="card-text">{{ sort_message }}</h3>
+                        {% endif %}
+                        <br>
+                        <p class="card-text"><b>Page {{ page }} of {{ total_pages }} ({{ recipes_per_page }} recipes per page)</b></p>
+                        <div>
+                            <hr>
+                            {% for recipe in recipes_list %}
+                                <h1><a href="recipe?id={{ recipe["id"] }}"> <b>"{{ recipe["title"] }}"</b></a> {{ '[AWAITING APPROVAL]' if recipe["state"] == "unapproved" }} {{ '[PRIVATE]' if recipe["private"] }}</h1>
+                                <h4>Servings: {{ recipe["servings"] }} - Calories: {{ recipe["calories_per_serving"] }} - Prep Time: {{ recipe["preparation_time"] }} - Rating: {{  display_rating(recipe["id"]) }}</h4>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                        {% if page > 1 %}
+                            <a href="/user-recipes?page={{ page - 1}}{{ "&search="+search_query if search_query != "" }}{{ "&sort="+sort_order if sort_order != "new" }}" style="float: left">< Previous Page ({{page - 1}})</a>
+                        {% endif %}
+                        {% if page < total_pages %}
+                            <a href="/user-recipes?page={{ page + 1}}{{ "&search="+search_query if search_query != "" }}{{ "&sort="+sort_order if sort_order != "new" }}" style="float: right">Next Page ({{page + 1}}) ></a>
+                        {% endif %}
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    <div>
+{% endblock %}

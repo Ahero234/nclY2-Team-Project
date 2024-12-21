@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4Health</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show page-header flash-messages" role="alert">
+                {{ messages[0] }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container overflow-hidden text-center p-3 page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="ml-3 mb-2 is-1 title">Welcome to 4Health {{ first_name }} </h1>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-4">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Track Progress</h5>
+              <img src="{{url_for('static', filename='blue-progress.png')}}" alt="blue progress graph icon" width="200" height="200">
+              <p class="card-text">4Health helps you to monitor your progress by allowing you to input health data through diary entries</p>
+              <a href="{{ url_for('diary.list_entries') }}" class="btn btn-primary">Progress</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Medication Reminders</h5>
+              <img src="{{url_for('static', filename='blue-cross-rounded.png')}}" alt="blue cross icon" width="200" height="200">
+              <p class="card-text">With 4Health, you can easily add medications and receive timely reminders to help you stay up-to-date and avoid missing doses.</p>
+              <a href="{{ url_for('medicine.medicines') }}" class="btn btn-primary">Medications</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Share Recipes</h5>
+                  <img src="{{url_for('static', filename='blue-recipe.png')}}" alt="blue recipe image" width="200" height="200">
+              <p class="card-text">4Health allows you to upload and share recipes with the community, allowing you to find a recipe that works for you!</p>
+              <a href="{{ url_for('recipes.new_recipe') }}" class="btn btn-primary">Recipes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+
+
+
+</body>
+</html>

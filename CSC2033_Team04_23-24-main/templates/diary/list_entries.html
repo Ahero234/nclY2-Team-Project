@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show page-header flash-messages" role="alert">
+                {{ messages[0] }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+<div class="container overflow-hidden p-3 page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3 class="card-title">My Daily Diary Entries</h3>
+                    <a href="{{ url_for('diary.new_entry') }}" class="btn btn-primary mb-3">New Entry</a>
+                    <a href="{{ url_for('diary.visualize_entries') }}" class="btn btn-secondary mb-3">See Visual Statistics</a>
+                    <div class="row">
+                        {% for entry in entries %}
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ entry.date }}</h5>
+                                        <p>Steps: {{ entry.steps }}</p>
+                                        <p>Hours of Sleep: {{ entry.hours_of_sleep }}</p>
+                                        <p>Calorie Intake: {{ entry.calorie_intake }}</p>
+                                        <p>Calories Burned: {{ entry.calorie_burned }}</p>
+                                        <p>Weight: {{ entry.weight }}</p>
+                                        <p>BMI: {{ entry.bmi }}</p>
+                                        <p>Diary Log: {{ entry.diary_log }}</p>
+                                        <a href="{{ url_for('diary.new_entry', entry_id=entry.id) }}" class="btn btn-secondary">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p>No entries found</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

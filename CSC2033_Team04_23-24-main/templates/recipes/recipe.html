@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container overflow-hidden p-3 page-header ">
+  <div class="row">
+     <div class="col-sm-2">
+     </div>
+        <div class="col-sm-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Recipes</h5>
+                 <h2><b><u>{{ recipe["title"] }}</u></b></h2>
+                {% if recipe["state"] == "unapproved" %}
+                    <h2 style="color: orange">This recipe is awaiting approval from an admin!</h2>
+
+                    {% if current_user.role == "admin" %}
+                        <form action="/approve-recipe">
+                            <input type="hidden" name="id" value="{{ recipe["id"] }}">
+                            <button class="btn btn-success mt-3" style="background-color: green">Approve recipe</button>
+                        </form>
+
+                        <form action="/delete-recipe">
+                            <input type="hidden" name="id" value="{{ recipe["id"] }}">
+                            <button class="btn btn-danger mt-3" style="background-color: red">Delete recipe</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+                <div>
+                    <form method="get" action="/bookmark">
+                        <input type="hidden" name="id" value="{{ recipe["id"] }}">
+                        {% if is_bookmarked(recipe, current_user) %}
+                            <input type="submit" class="btn btn-secondary mb-3" value="Unbookmark">
+                        {% else %}
+                            <input type="submit"  class="btn btn-secondary mb-3" value="Bookmark">
+                        {%endif %}
+                    </form>
+                    <p class="card-title" >Rating:</u> {{  display_rating(recipe["id"]) }}</p>
+                    {% if user_rating %}
+                        <p class="card-title"><b>You rated this recipe {{ user_rating }}/5</b></p>
+                    {% endif %}
+                    <p>{{ recipe["summary"] }}</p>
+                    <p class="card-title" >Category: </p> <p> {{ recipe["category"] }}</p> <p class="card-title" > Tags:</p>
+                    <p>
+                        {% for tag in recipe["tags"] %}
+                            <span class="badge badge-secondary">{{ tag }}</span>
+                        {% endfor %}
+
+
+                    </p>
+                    <p class="card-title" >Ingredients:
+                    <ul>
+                        {% for ingredient in recipe["ingredients"] %}
+                            <li>
+                                {{ ingredient }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    </p>
+                    <p class="card-title"> Instructions:
+                    <ul>
+                        {% for instruction in recipe["instructions"] %}
+                            <li>
+                                {{ instruction }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    </p>
+
+                    <p class="card-title">Servings: </p> <p> {{ recipe["servings"] }} ({{ recipe["calories_per_serving"] }} calories per serving)</p>
+                    <p class="card-title">Preparation time (minutes):</p> <p> {{ recipe["preparation_time"] }}</p>
+
+                    <p class="card-title">Submitted by:</p> <p> {{ recipe["created_by"] }}</p>
+                </div>
+
+                <div>
+                    <h3 class="card-text">Reviews</h3>
+                    {% if reviews != [] %}
+                        <ul>
+                        {% for review in reviews %}
+                            <li>
+                            <p class="card-text">{{ review.value }}/5: "{{ review.review }}"  - {{ User.query.filter_by(id=review.user_id).first().username }}</p>
+                            {% if current_user.role == "admin" %}
+                                <form action="/delete-review">
+                                    <input type="hidden" name="id" value="{{ review.id }}">
+                                    <button class="button" style="background-color: red">Delete review</button>
+                                </form>
+                            {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No reviews yet</p>
+                    {% endif %}
+                {% if user_rating %}
+                    <p class="card-text"><b>Update your existing rating and review</b></p>
+                {% else %}
+                    <p>Rate the recipe from 1 to 5 (and optionally, you can also add a review!)</p>
+                {% endif %}
+                    <form class="needs-validation" accept-charset="utf-8" action="" method="POST">
+                    {{ form.csrf_token }}
+                        <div>
+                            <div class="form-group">
+                                <label for="inputReview">Your Review:</label>
+                                {{ form.review(class="form-control", placeholder="Write your review of this recipe here", value=user_review) }}
+                                {% for error in form.review.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="inputRating">Your Rating:</label>
+                                {{ form.rating(class="form-control", placeholder="Select your rating here (1, 2, 3, 4, or 5)", value=user_rating) }}
+                                {% for error in form.rating.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="d-flex mt-3">
+                            {% if user_rating %}
+                                {{ form.submit( value="Edit rating/review", class="mt-4 btn btn-primary") }}
+                            {% else %}
+                                {{ form.submit( value="Post rating/review", class="mt-4 btn btn-primary") }}
+                            {% endif %}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
+          <div class="col-sm-2">
+            </div>
+        </div>
+       </div>
+    </div>
+{% endblock %}

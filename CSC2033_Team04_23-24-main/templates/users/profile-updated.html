@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+             <div class="notification is-danger">
+                 {{ messages[0] }}
+             </div>
+        {% endif %}
+     {% endwith %}
+
+
+    <div class="container overflow-hidden p-3 page-header">
+      <div class="row">
+        <div class="col-sm-6">
+          <form method="POST">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Profile</h4>
+                <p class="card-text">My details</p>
+                <table class="table">
+                <tr>
+                    <th>First Name</th>
+                    <td>{{ form.first_name(class="form-control", id="first_name", value=current_user.first_name) }}</td>
+                    {% for error in form.first_name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td>{{ form.last_name(class="form-control", id="last_name", value=current_user.last_name) }}</td>
+                    {% for error in form.last_name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td>{{ form.username(class="form-control", id="username", value=current_user.username) }}</td>
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </tr>
+                <th>Email</th>
+                    <th><input class="form-control" id="update_field" name="email"
+                         value="{{ email }}" disabled readonly></th>
+                    </tr>
+                    <tr>
+                        <th>Account No.</th>
+                        <th><input class="form-control" id="update_field" name="acc_no"
+                             value="{{ acc_no }}" disabled readonly></th>
+                        </tr>
+                    <tr>
+                        <th>Date Of Birth</th>
+                        <th><input class="form-control" id="update_field" name="email"
+                             value="{{ dob }}" disabled readonly></th>
+                    </tr>
+                </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            </div>
+          </div>
+          </form>
+        </div>
+
+
+        <div class="col-sm-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Health Data</h4>
+              <p class="card-text">Your Health Data</p>
+               <table class="table">
+                    <tr>
+                        <th>Height</th>
+                        <th>{{ height }}</th>
+                    </tr>
+                    <tr>
+                        <th>Weight</th>
+                        <th>{{ weight }}</th>
+                    </tr>
+                </tbody>
+                </table>
+              <a href="#" class="btn btn-secondary">Edit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      </div>
+
+
+
+
+    </div>
+
+
+{% endblock %}
